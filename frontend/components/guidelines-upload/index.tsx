@@ -5,12 +5,18 @@ import classNames from "classnames";
 import { FaCheck } from "react-icons/fa";
 import { useState } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { toast } from "react-toastify";
 
 export default function GuidelinesUpload() {
-    const { guidelinesFile, setGuidelinesFile } = useDashboard();
+    const { guidelinesFile, setGuidelinesFile, medicalRecord } = useDashboard();
     const [isUploading, setIsUploading] = useState(false);
 
     const handleClick = () => {
+        if (!medicalRecord) {
+            toast.error("Please upload a Medical Record first.");
+            return;
+        }
+
         setIsUploading(true);
         setTimeout(() => {
             setIsUploading(false);
